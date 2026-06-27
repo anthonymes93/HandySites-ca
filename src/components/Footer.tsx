@@ -9,14 +9,9 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-9 h-9 bg-orange-500 rounded-lg flex items-center justify-center shadow-sm shadow-orange-500/30">
-                <span className="text-white font-black text-base tracking-tight">H</span>
-              </div>
-              <span
-                className="font-black text-white text-xl tracking-tight"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                HandySite<span className="text-orange-500">.ca</span>
+              <img src="/logo-icon.png" alt="HandySites icon" style={{ height: '40px', width: 'auto' }} />
+              <span className="font-black text-white tracking-tight" style={{ fontSize: '1.25rem', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>
+                HANDY<span className="text-orange-500">SITES</span>
               </span>
             </div>
             <p className="text-sm leading-relaxed max-w-xs text-gray-500">

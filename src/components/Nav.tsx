@@ -4,16 +4,6 @@ import { Menu, X } from 'lucide-react'
 
 const links = ['Home', 'Pricing', 'FAQ', 'Contact']
 
-function LogoIcon() {
-  return (
-    <div className="w-9 h-9 bg-orange-500 rounded-lg flex items-center justify-center shadow-sm shrink-0">
-      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
-      </svg>
-    </div>
-  )
-}
-
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -48,11 +38,8 @@ export default function Nav() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between" style={{ height: '68px' }}>
-          <a href="#home" className="flex items-center gap-2.5" onClick={() => setMobileOpen(false)}>
-            <LogoIcon />
-            <span className="font-black text-[1.2rem] tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
-              <span className="text-gray-950">HANDY</span><span className="text-orange-500">SITE</span>
-            </span>
+          <a href="#home" className="flex items-center" onClick={() => setMobileOpen(false)}>
+            <img src="/logo.png" alt="HandySites" style={{ height: '42px', width: 'auto' }} />
           </a>
 
           <nav className="hidden md:flex items-center gap-8">
