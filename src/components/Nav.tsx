@@ -39,7 +39,7 @@ export default function Nav() {
       >
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between" style={{ height: '68px' }}>
           <a href="#home" className="flex items-center" onClick={() => setMobileOpen(false)}>
-            <img src="/logo.png" alt="HandySites" style={{ height: '42px', width: 'auto' }} />
+            <img src="/logo.png" alt="HandySites" style={{ height: '64px', width: 'auto' }} />
           </a>
 
           <nav className="hidden md:flex items-center gap-8">
