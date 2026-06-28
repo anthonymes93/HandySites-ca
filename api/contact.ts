@@ -1,13 +1,10 @@
-// ─── Vercel Edge Runtime ──────────────────────────────────────
-// Uses Web APIs (Request/Response) — no @vercel/node needed,
-// no ESM/CJS ambiguity, no tsconfig dependency.
-export const config = { runtime: 'edge' }
-
-// ─── Environment variables ────────────────────────────────────
-// Set these in Vercel → Project → Settings → Environment Variables:
-//   RESEND_API_KEY      → your key from https://resend.com/api-keys
-//   CONTACT_TO_EMAIL    → your inbox (e.g. you@gmail.com)
-//   CONTACT_FROM_EMAIL  → verified sender (e.g. hello@handysite.ca)
+// Node.js Serverless Function (default Vercel runtime — no edge config)
+// Uses process.env for environment variables and native fetch for Resend.
+//
+// Required environment variables in Vercel:
+//   RESEND_API_KEY       → https://resend.com/api-keys
+//   CONTACT_TO_EMAIL     → your inbox (e.g. you@gmail.com)
+//   CONTACT_FROM_EMAIL   → verified sender (e.g. hello@handysite.ca)
 
 const PLAN_LABELS: Record<string, string> = {
   starter: 'Website Build — $500 one-time',
@@ -24,46 +21,42 @@ function esc(str: string | undefined | null): string {
     .replace(/\n/g, '<br />')
 }
 
-function json(body: unknown, status = 200): Response {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { 'Content-Type': 'application/json' },
-  })
-}
-
-export default async function handler(req: Request): Promise<Response> {
-  // ── Diagnostic log — confirms function is executing ──────────
+export default async function handler(req: any, res: any) {
+  // ── Diagnostic: confirm function is executing ─────────────────
   console.log('[api/contact] invoked —', req.method)
 
+  // ── Diagnostic: safe env var check (never logs actual values) ─
+  const hasResendApiKey    = Boolean(process.env.RESEND_API_KEY)
+  const hasContactToEmail  = Boolean(process.env.CONTACT_TO_EMAIL)
+  const hasContactFromEmail = Boolean(process.env.CONTACT_FROM_EMAIL)
+
+  console.log('[api/contact] env vars present:', {
+    hasResendApiKey,
+    hasContactToEmail,
+    hasContactFromEmail,
+  })
+
+  if (!hasResendApiKey || !hasContactToEmail || !hasContactFromEmail) {
+    const missing = [
+      !hasResendApiKey     && 'RESEND_API_KEY',
+      !hasContactToEmail   && 'CONTACT_TO_EMAIL',
+      !hasContactFromEmail && 'CONTACT_FROM_EMAIL',
+    ].filter(Boolean)
+    console.error('[api/contact] Missing env vars:', missing)
+    return res.status(500).json({ error: 'Server configuration error. Please contact us directly.' })
+  }
+
   if (req.method !== 'POST') {
-    return json({ error: 'Method not allowed.' }, 405)
+    return res.status(405).json({ error: 'Method not allowed.' })
   }
 
-  let body: Record<string, string>
-  try {
-    body = await req.json()
-  } catch {
-    return json({ error: 'Invalid request body.' }, 400)
-  }
-
-  const { name, email, phone, business, plan, message } = body
+  const { name, email, phone, business, plan, message } = req.body ?? {}
 
   // ── Validation ────────────────────────────────────────────────
-  if (!name?.trim())  return json({ error: 'Name is required.' }, 400)
-  if (!email?.trim()) return json({ error: 'Email address is required.' }, 400)
+  if (!name?.trim())  return res.status(400).json({ error: 'Name is required.' })
+  if (!email?.trim()) return res.status(400).json({ error: 'Email address is required.' })
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return json({ error: 'Please enter a valid email address.' }, 400)
-  }
-
-  const apiKey  = (globalThis as unknown as Record<string, string>)['RESEND_API_KEY']  ?? ''
-  const toEmail = (globalThis as unknown as Record<string, string>)['CONTACT_TO_EMAIL']  ?? ''
-  const fromEmail = (globalThis as unknown as Record<string, string>)['CONTACT_FROM_EMAIL'] ?? ''
-
-  console.log('[api/contact] env check — apiKey present:', !!apiKey, '| to:', toEmail)
-
-  if (!apiKey || !toEmail || !fromEmail) {
-    console.error('[api/contact] Missing environment variables')
-    return json({ error: 'Server configuration error. Please contact us directly.' }, 500)
+    return res.status(400).json({ error: 'Please enter a valid email address.' })
   }
 
   const planLabel = PLAN_LABELS[plan] ?? plan ?? 'Not specified'
@@ -134,18 +127,16 @@ export default async function handler(req: Request): Promise<Response> {
 </body>
 </html>`
 
-  // ── Send via Resend REST API directly ─────────────────────────
-  // Using fetch instead of the SDK avoids any Node.js/ESM runtime issues
-  // in the Edge Runtime.
+  // ── Send via Resend REST API ───────────────────────────────────
   const resendRes = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
+      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
     },
     body: JSON.stringify({
-      from:     fromEmail,
-      to:       toEmail,
+      from:     process.env.CONTACT_FROM_EMAIL,
+      to:       process.env.CONTACT_TO_EMAIL,
       reply_to: email,
       subject:  `New HandySite.ca Inquiry — ${name}`,
       html,
@@ -153,11 +144,11 @@ export default async function handler(req: Request): Promise<Response> {
   })
 
   if (!resendRes.ok) {
-    const resendError = await resendRes.text()
-    console.error('[api/contact] Resend error:', resendRes.status, resendError)
-    return json({ error: 'Failed to send email. Please try again.' }, 500)
+    const errBody = await resendRes.text()
+    console.error('[api/contact] Resend error:', resendRes.status, errBody)
+    return res.status(500).json({ error: 'Failed to send email. Please try again.' })
   }
 
   console.log('[api/contact] Email sent successfully')
-  return json({ success: true })
+  return res.status(200).json({ success: true })
 }
