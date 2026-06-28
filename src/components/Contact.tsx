@@ -178,8 +178,8 @@ export default function Contact() {
                         onChange={handleChange}
                         className={`${inputClass} appearance-none cursor-pointer`}
                       >
-                        <option value="starter">Starter — $500</option>
-                        <option value="pro">Pro — $900</option>
+                        <option value="starter">Starter — $500 one-time</option>
+                        <option value="managed">Managed — $15/month</option>
                         <option value="unsure">Not sure yet</option>
                       </select>
                       <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">

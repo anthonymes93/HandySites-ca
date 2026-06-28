@@ -1,5 +1,5 @@
 import { motion, type Variants } from 'framer-motion'
-import { Zap, Smartphone, Search, Clock } from 'lucide-react'
+import { Zap, Smartphone, PhoneCall, Clock } from 'lucide-react'
 
 const features = [
   {
@@ -13,9 +13,9 @@ const features = [
     description: 'Your customers browse on their phones. Every site looks polished on every screen size.',
   },
   {
-    icon: Search,
-    title: 'SEO Ready',
-    description: 'Built with local SEO from day one — so customers in your area can actually find you.',
+    icon: PhoneCall,
+    title: 'Gets You Calls',
+    description: 'Every page is designed to turn visitors into paying customers — more calls, more jobs.',
   },
   {
     icon: Clock,

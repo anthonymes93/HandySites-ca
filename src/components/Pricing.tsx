@@ -4,7 +4,7 @@ import { Check } from 'lucide-react'
 const starterFeatures = [
   '5-page custom website',
   'Mobile-responsive design',
-  'Local SEO optimization',
+  'Optimized to be found online',
   'Contact form',
   'Google Maps integration',
   'Social media links',
@@ -13,14 +13,13 @@ const starterFeatures = [
 ]
 
 const proFeatures = [
-  'Everything in Starter',
-  'Up to 10 pages',
-  'Blog or news section',
-  'Google Analytics setup',
-  '12 months of updates',
+  'Domain name included',
+  'Hosting included',
+  'Annual domain renewals covered',
+  'Site updates & maintenance',
   'Priority email support',
-  'Custom domain setup',
-  'Quarterly SEO check-in',
+  'Google Analytics setup',
+  'We handle all the tech',
 ]
 
 interface PlanProps {
@@ -118,13 +117,13 @@ export default function Pricing() {
             Simple, honest pricing
           </h2>
           <p className="text-lg text-gray-500 max-w-lg mx-auto leading-relaxed">
-            No surprises. No hidden fees. One investment in a website that works for your business.
+            No surprises. No hidden fees. Build your site once, or let us handle everything month to month.
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-7 max-w-4xl mx-auto" style={{ paddingTop: '1.5rem' }}>
           <PricingCard
-            name="Starter"
+            name="Website Build"
             price="$500"
             period="one-time"
             tagline="Perfect for getting a polished, professional site live fast."
@@ -133,13 +132,13 @@ export default function Pricing() {
             delay={0.1}
           />
           <PricingCard
-            name="Pro"
-            price="$900"
-            period="one-time"
-            tagline="For businesses ready to grow their entire online presence."
+            name="Managed"
+            price="$15"
+            period="/month"
+            tagline="Your site, domain, and hosting — all handled for you, every month."
             features={proFeatures}
             featured={true}
-            badge="Most Popular"
+            badge="We Handle Everything"
             delay={0.2}
           />
         </div>

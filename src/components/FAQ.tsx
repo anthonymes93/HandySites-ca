@@ -6,7 +6,7 @@ const faqs = [
   {
     question: "What's included in the $500 Starter package?",
     answer:
-      'Your Starter package includes a 5-page custom website (Home, About, Services, Gallery, Contact), full mobile-responsive design, on-page SEO optimization, a working contact form, Google Maps integration, and social media links. We handle everything from design to deployment.',
+      'Your Starter package includes a 5-page custom website (Home, About, Services, Gallery, Contact), full mobile-responsive design, a working contact form, Google Maps integration, and social media links. We handle everything from design to deployment.',
   },
   {
     question: 'Do I need any technical knowledge?',
@@ -21,7 +21,7 @@ const faqs = [
   {
     question: 'Are there any monthly fees?',
     answer:
-      "Both packages are one-time payments. The only recurring costs are web hosting (~$10–20/month) and your domain name (~$15/year) — we'll walk you through setting these up. The Pro package includes 12 months of site updates at no extra charge.",
+      "The Starter package is a one-time $500 payment — you own the site outright. The Managed plan is $15/month and covers everything: hosting, your domain, annual renewals, and ongoing maintenance. No surprises, cancel any time.",
   },
   {
     question: 'Can I request changes after my site launches?',
