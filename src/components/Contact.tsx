@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Send, CheckCircle2 } from 'lucide-react'
+import { Send, CheckCircle2, Loader2, AlertCircle } from 'lucide-react'
 
 const inputClass =
   'w-full bg-white border border-gray-200 rounded-xl px-4 py-3.5 text-gray-900 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all duration-200 hover:border-gray-300'
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [form, setForm] = useState({
     name: '',
     business: '',
@@ -20,11 +22,35 @@ export default function Contact() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value })
+    if (error) setError(null)
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
+    if (loading) return // prevent duplicate submissions
+
+    setLoading(true)
+    setError(null)
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.error ?? 'Something went wrong. Please try again.')
+      }
+
+      setSubmitted(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -74,7 +100,6 @@ export default function Contact() {
               ))}
             </div>
 
-            {/* Quote block */}
             <div className="p-7 bg-orange-50 rounded-2xl border border-orange-100">
               <div className="text-3xl text-orange-300 font-serif leading-none mb-3">"</div>
               <p className="text-orange-800 text-[15px] italic leading-relaxed mb-3">
@@ -121,6 +146,7 @@ export default function Contact() {
                         onChange={handleChange}
                         placeholder="Mike Johnson"
                         className={inputClass}
+                        disabled={loading}
                       />
                     </div>
                     <div>
@@ -134,6 +160,7 @@ export default function Contact() {
                         onChange={handleChange}
                         placeholder="Johnson Plumbing"
                         className={inputClass}
+                        disabled={loading}
                       />
                     </div>
                   </div>
@@ -150,6 +177,7 @@ export default function Contact() {
                       onChange={handleChange}
                       placeholder="mike@example.com"
                       className={inputClass}
+                      disabled={loading}
                     />
                   </div>
 
@@ -164,6 +192,7 @@ export default function Contact() {
                       onChange={handleChange}
                       placeholder="(416) 555-0100"
                       className={inputClass}
+                      disabled={loading}
                     />
                   </div>
 
@@ -177,6 +206,7 @@ export default function Contact() {
                         value={form.plan}
                         onChange={handleChange}
                         className={`${inputClass} appearance-none cursor-pointer`}
+                        disabled={loading}
                       >
                         <option value="starter">Starter — $500 one-time</option>
                         <option value="managed">Managed — $15/month</option>
@@ -201,15 +231,38 @@ export default function Contact() {
                       onChange={handleChange}
                       placeholder="What kind of work do you do? What do you want your website to accomplish?"
                       className={`${inputClass} resize-none`}
+                      disabled={loading}
                     />
                   </div>
 
+                  {/* Error message */}
+                  {error && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="flex items-start gap-3 bg-red-50 border border-red-100 text-red-700 rounded-xl px-4 py-3"
+                    >
+                      <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                      <p className="text-sm">{error}</p>
+                    </motion.div>
+                  )}
+
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center gap-2.5 bg-orange-500 text-white font-bold py-4 rounded-full hover:bg-orange-600 transition-all duration-200 shadow-lg shadow-orange-200 hover:shadow-xl hover:shadow-orange-200 hover:-translate-y-0.5 text-[15px] mt-2"
+                    disabled={loading}
+                    className="w-full flex items-center justify-center gap-2.5 bg-orange-500 text-white font-bold py-4 rounded-full hover:bg-orange-600 transition-all duration-200 shadow-lg shadow-orange-200 hover:shadow-xl hover:shadow-orange-200 hover:-translate-y-0.5 text-[15px] mt-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                   >
-                    Send Message
-                    <Send className="w-4 h-4" />
+                    {loading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Sending…
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <Send className="w-4 h-4" />
+                      </>
+                    )}
                   </button>
 
                   <p className="text-center text-gray-400 text-xs mt-1">

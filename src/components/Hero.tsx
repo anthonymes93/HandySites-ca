@@ -75,7 +75,7 @@ export default function Hero() {
             className="text-orange-500"
             style={{ textShadow: '0 0 80px rgba(249,115,22,0.22)' }}
           >
-            $500.
+            $8600.
           </span>
         </motion.h1>
 
