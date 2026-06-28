@@ -8,16 +8,13 @@ const starterFeatures = [
   'Contact form',
   'Google Maps integration',
   'Social media links',
-  'Hosting setup guide',
   'Launch in 7 business days',
 ]
 
 const proFeatures = [
-  'Domain name included',
+  'Domain name included or bring your own',
   'Hosting included',
-  'Annual domain renewals covered',
   'Site updates & maintenance',
-  'Priority email support',
   'Google Analytics setup',
   'We handle all the tech',
 ]

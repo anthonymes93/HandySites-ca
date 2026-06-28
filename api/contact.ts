@@ -6,11 +6,6 @@
 //   CONTACT_TO_EMAIL     → your inbox (e.g. you@gmail.com)
 //   CONTACT_FROM_EMAIL   → verified sender (e.g. hello@handysite.ca)
 
-const PLAN_LABELS: Record<string, string> = {
-  starter: 'Website Build — $500 one-time',
-  managed: 'Managed — $15/month',
-  unsure:  'Not sure yet',
-}
 
 function esc(str: string | undefined | null): string {
   return (str ?? '')
@@ -50,7 +45,7 @@ export default async function handler(req: any, res: any) {
     return res.status(405).json({ error: 'Method not allowed.' })
   }
 
-  const { name, email, phone, business, plan, message } = req.body ?? {}
+  const { name, email, phone, business, message } = req.body ?? {}
 
   // ── Validation ────────────────────────────────────────────────
   if (!name?.trim())  return res.status(400).json({ error: 'Name is required.' })
@@ -58,8 +53,6 @@ export default async function handler(req: any, res: any) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'Please enter a valid email address.' })
   }
-
-  const planLabel = PLAN_LABELS[plan] ?? plan ?? 'Not specified'
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -90,7 +83,6 @@ export default async function handler(req: any, res: any) {
               ['Email',    `<a href="mailto:${esc(email)}" style="color:#F97316;text-decoration:none;">${esc(email)}</a>`],
               ['Phone',    esc(phone)    || '<span style="color:#9CA3AF;">Not provided</span>'],
               ['Business', esc(business) || '<span style="color:#9CA3AF;">Not provided</span>'],
-              ['Plan',     esc(planLabel)],
             ] as [string, string][]).map(([label, value]) => `
             <tr>
               <td style="padding:10px 0;border-bottom:1px solid #F3F4F6;width:110px;vertical-align:top;">

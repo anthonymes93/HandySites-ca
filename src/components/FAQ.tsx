@@ -16,22 +16,17 @@ const faqs = [
   {
     question: 'How long does it take to build my website?',
     answer:
-      'Most Starter sites are live within 7 business days of you providing your content. Pro sites may take up to 14 days depending on complexity. Once you approve the initial design, we move fast.',
+      'Most sites are live within 7 business days ',
   },
   {
     question: 'Are there any monthly fees?',
     answer:
-      "The Starter package is a one-time $500 payment — you own the site outright. The Managed plan is $15/month and covers everything: hosting, your domain, annual renewals, and ongoing maintenance. No surprises, cancel any time.",
-  },
-  {
-    question: 'Can I request changes after my site launches?',
-    answer:
-      'Yes. Starter clients receive up to 2 minor content updates per month at no charge (text changes, photo swaps). For larger changes or new pages, we offer an affordable hourly rate. Pro clients receive ongoing updates included for the first year.',
+      "The website build is a one-time $500 payment — you own the site outright. The Managed plan is $15/month and covers everything: hosting, your domain, annual renewals, and ongoing maintenance. No surprises, cancel any time.",
   },
   {
     question: 'Do you work with businesses outside of Canada?',
     answer:
-      "We're based in Canada and primarily serve Canadian businesses, but we're happy to work with local service businesses across North America. Drop us a message and let us know where you're located.",
+      "We're based in Canada and primarily serve Canadian businesses, but we're happy to work with local service businesses across the globe. Drop us a message and let us know where you're located.",
   },
 ]
 

@@ -34,21 +34,13 @@ export default function Footer() {
                   </a>
                 </li>
               ))}
-              <li>
-                <a
-                  href="mailto:hello@handysite.ca"
-                  className="text-gray-500 hover:text-orange-400 transition-colors duration-150"
-                >
-                  hello@handysite.ca
-                </a>
-              </li>
             </ul>
           </div>
         </div>
 
         {/* Bottom row */}
         <div className="border-t border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-gray-600">© {new Date().getFullYear()} HandySite.ca — All rights reserved.</p>
+          <p className="text-xs text-gray-600">© {new Date().getFullYear()} HandySites.ca — All rights reserved.</p>
           <p className="text-xs text-gray-700">Made with care in Canada 🍁</p>
         </div>
       </div>

@@ -14,7 +14,6 @@ export default function Contact() {
     business: '',
     email: '',
     phone: '',
-    plan: 'starter',
     message: '',
   })
 
@@ -82,7 +81,7 @@ export default function Contact() {
 
             <div className="space-y-5 mb-12">
               {[
-                { emoji: '📧', title: 'Email Us', detail: 'hello@handysite.ca' },
+                { emoji: '📬', title: 'Contact Us', detail: 'Use the form — we\'ll reply within 24 hours' },
                 { emoji: '⚡', title: 'Fast Response', detail: 'We reply within 24 hours' },
                 { emoji: '🍁', title: 'Proudly Canadian', detail: 'Serving businesses nationwide' },
               ].map(item => (
@@ -198,38 +197,14 @@ export default function Contact() {
 
                   <div>
                     <label className="block text-[10px] font-black text-gray-500 mb-2 uppercase tracking-[0.12em]">
-                      Which plan interests you?
-                    </label>
-                    <div className="relative">
-                      <select
-                        name="plan"
-                        value={form.plan}
-                        onChange={handleChange}
-                        className={`${inputClass} appearance-none cursor-pointer`}
-                        disabled={loading}
-                      >
-                        <option value="starter">Starter — $500 one-time</option>
-                        <option value="managed">Managed — $15/month</option>
-                        <option value="unsure">Not sure yet</option>
-                      </select>
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-[10px] font-black text-gray-500 mb-2 uppercase tracking-[0.12em]">
-                      About Your Business
+                      Tell us about your project
                     </label>
                     <textarea
                       name="message"
                       rows={4}
                       value={form.message}
                       onChange={handleChange}
-                      placeholder="What kind of work do you do? What do you want your website to accomplish?"
+                      placeholder="Tell us about your business, the type of website you need, any features you're looking for, and anything else you'd like us to know."
                       className={`${inputClass} resize-none`}
                       disabled={loading}
                     />
