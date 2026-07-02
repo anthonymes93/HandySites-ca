@@ -1,12 +1,13 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Send, CheckCircle2, Loader2, AlertCircle } from 'lucide-react'
+import { Send, Loader2, AlertCircle } from 'lucide-react'
 
 const inputClass =
   'w-full bg-white border border-gray-200 rounded-xl px-4 py-3.5 text-gray-900 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all duration-200 hover:border-gray-300'
 
 export default function Contact() {
-  const [submitted, setSubmitted] = useState(false)
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [form, setForm] = useState({
@@ -44,7 +45,7 @@ export default function Contact() {
         throw new Error(data.error ?? 'Something went wrong. Please try again.')
       }
 
-      setSubmitted(true)
+      navigate('/thank-you')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
     } finally {
@@ -116,21 +117,6 @@ export default function Contact() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="bg-gray-50 rounded-3xl p-9 border border-gray-100 shadow-sm">
-              {submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.92 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-16"
-                >
-                  <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-5 border border-green-100">
-                    <CheckCircle2 className="w-8 h-8 text-green-500" />
-                  </div>
-                  <h3 className="text-xl font-black text-gray-950 mb-2" style={{ fontFamily: 'var(--font-display)' }}>
-                    Message received!
-                  </h3>
-                  <p className="text-gray-500 text-sm">We'll be in touch within one business day.</p>
-                </motion.div>
-              ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
@@ -244,7 +230,6 @@ export default function Contact() {
                     We typically reply within 24 hours on business days.
                   </p>
                 </form>
-              )}
             </div>
           </motion.div>
         </div>
