@@ -50,21 +50,13 @@ export default function ThankYou() {
               We'll review your message and get back to you as soon as possible.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                to="/"
-                className="inline-flex items-center gap-2 bg-orange-500 text-white font-bold px-7 py-3.5 rounded-full hover:bg-orange-600 transition-all duration-200 shadow-lg shadow-orange-200 hover:shadow-xl hover:shadow-orange-200 hover:-translate-y-0.5 text-[15px]"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Back to Home
-              </Link>
-              <a
-                href="/#pricing"
-                className="inline-flex items-center gap-2 text-gray-500 font-semibold px-7 py-3.5 rounded-full border border-gray-200 hover:border-orange-300 hover:text-orange-500 transition-all duration-200 text-[15px]"
-              >
-                View Pricing
-              </a>
-            </div>
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 bg-orange-500 text-white font-bold px-7 py-3.5 rounded-full hover:bg-orange-600 transition-all duration-200 shadow-lg shadow-orange-200 hover:shadow-xl hover:shadow-orange-200 hover:-translate-y-0.5 text-[15px]"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Home
+            </Link>
           </motion.div>
         </main>
 
