@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const links = ['Home', 'Pricing', 'FAQ', 'Contact']
 
 export default function Footer() {
@@ -41,7 +43,12 @@ export default function Footer() {
         {/* Bottom row */}
         <div className="border-t border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-gray-600">© {new Date().getFullYear()} HandySites.ca — All rights reserved.</p>
-          <p className="text-xs text-gray-700">Made with care in Canada 🍁</p>
+          <div className="flex items-center gap-6">
+            <Link to="/privacy-policy" className="text-xs text-gray-700 hover:text-orange-400 transition-colors duration-150">
+              Privacy Policy
+            </Link>
+            <p className="text-xs text-gray-700">Made with care in Canada 🍁</p>
+          </div>
         </div>
       </div>
     </footer>
