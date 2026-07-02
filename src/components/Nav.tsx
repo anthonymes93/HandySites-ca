@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Phone } from 'lucide-react'
 
 const links = ['Home', 'Pricing', 'FAQ', 'Contact']
 
@@ -63,13 +63,22 @@ export default function Nav() {
             })}
           </nav>
 
-          <a
-            href="#contact"
-            className="hidden md:inline-flex items-center gap-2 bg-orange-500 text-white text-sm font-bold px-6 py-2.5 rounded-full hover:bg-orange-600 transition-all duration-200 shadow-sm hover:shadow-md hover:shadow-orange-200"
-          >
-            Get Started
-            <span className="leading-none">→</span>
-          </a>
+          <div className="hidden md:flex items-center gap-3">
+            <a
+              href="tel:+19052203305"
+              className="inline-flex items-center gap-2 text-gray-600 hover:text-orange-500 text-sm font-semibold transition-colors duration-150"
+            >
+              <Phone className="w-4 h-4" />
+              (905) 220-3305
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 bg-orange-500 text-white text-sm font-bold px-6 py-2.5 rounded-full hover:bg-orange-600 transition-all duration-200 shadow-sm hover:shadow-md hover:shadow-orange-200"
+            >
+              Get Started
+              <span className="leading-none">→</span>
+            </a>
+          </div>
 
           <button
             className="md:hidden p-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-colors"
@@ -101,9 +110,17 @@ export default function Nav() {
               </a>
             ))}
             <a
+              href="tel:+19052203305"
+              onClick={() => setMobileOpen(false)}
+              className="mt-3 flex items-center justify-center gap-2 border-2 border-orange-500 text-orange-500 font-bold py-3.5 rounded-full hover:bg-orange-50 transition-colors"
+            >
+              <Phone className="w-4 h-4" />
+              Call Now
+            </a>
+            <a
               href="#contact"
               onClick={() => setMobileOpen(false)}
-              className="mt-3 bg-orange-500 text-white text-center font-bold py-3.5 rounded-full hover:bg-orange-600 transition-colors"
+              className="mt-2 bg-orange-500 text-white text-center font-bold py-3.5 rounded-full hover:bg-orange-600 transition-colors"
             >
               Get Started
             </a>

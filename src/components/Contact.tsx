@@ -82,7 +82,7 @@ export default function Contact() {
 
             <div className="space-y-5 mb-12">
               {[
-                { emoji: '📬', title: 'Contact Us', detail: 'Use the form — we\'ll reply within 24 hours' },
+                { emoji: '📞', title: 'Call Us', detail: '(905) 220-3305', href: 'tel:+19052203305' },
                 { emoji: '⚡', title: 'Fast Response', detail: 'We reply within 24 hours' },
                 { emoji: '🍁', title: 'Proudly Canadian', detail: 'Serving businesses nationwide' },
               ].map(item => (
@@ -94,7 +94,13 @@ export default function Contact() {
                     <p className="font-bold text-gray-900 text-sm" style={{ fontFamily: 'var(--font-display)' }}>
                       {item.title}
                     </p>
-                    <p className="text-gray-500 text-sm">{item.detail}</p>
+                    {'href' in item ? (
+                      <a href={item.href} className="text-orange-500 font-semibold text-sm hover:text-orange-600 transition-colors">
+                        {item.detail}
+                      </a>
+                    ) : (
+                      <p className="text-gray-500 text-sm">{item.detail}</p>
+                    )}
                   </div>
                 </div>
               ))}

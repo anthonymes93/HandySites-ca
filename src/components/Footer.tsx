@@ -16,10 +16,16 @@ export default function Footer() {
                 HANDY<span className="text-orange-500">SITES</span>
               </span>
             </div>
-            <p className="text-sm leading-relaxed max-w-xs text-gray-500">
+            <p className="text-sm leading-relaxed max-w-xs text-gray-500 mb-4">
               Professional websites for contractors, tradespeople, and local service businesses
               across Canada. Fast turnaround. Flat pricing. Real results.
             </p>
+            <a
+              href="tel:+19052203305"
+              className="inline-flex items-center gap-2 text-gray-400 hover:text-orange-400 text-sm font-semibold transition-colors duration-150"
+            >
+              📞 (905) 220-3305
+            </a>
           </div>
 
           {/* Links */}
