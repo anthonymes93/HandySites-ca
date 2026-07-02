@@ -47,6 +47,9 @@ export default function Footer() {
             <Link to="/privacy-policy" className="text-xs text-gray-700 hover:text-orange-400 transition-colors duration-150">
               Privacy Policy
             </Link>
+            <Link to="/terms-of-service" className="text-xs text-gray-700 hover:text-orange-400 transition-colors duration-150">
+              Terms of Service
+            </Link>
             <p className="text-xs text-gray-700">Made with care in Canada 🍁</p>
           </div>
         </div>
