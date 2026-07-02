@@ -47,7 +47,7 @@ export default function ThankYou() {
             </h1>
 
             <p className="text-[1.0625rem] text-gray-500 leading-relaxed mb-10">
-              We'll review your message and get back to you as soon as possible.
+              We'll review your message and get back to you as soon as possible. We usually respond within 1 business day. Thanks for reaching out!
             </p>
 
             <Link
